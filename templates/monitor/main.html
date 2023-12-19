@@ -1,0 +1,187 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/bootstrap_morph.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/monitor.css' %}" />
+<div class="container">
+  <div class="top-command-frame">
+    <div class="start-stop">
+      <button id="btnStop" type="button" class="btn btn-primary">Stop</button>
+      <button id="btnRun" type="button" class="btn btn-primary">Run</button>
+    </div>
+    <div class="additionals">
+      <button id="build" type="button" class="btn btn-primary disabled">
+        Build
+      </button>
+    </div>
+  </div>
+  <div class="commands">
+    <div class="btn-group-vertical">
+      <button id="data-normal" type="button" class="btn btn-primary">
+        Normal
+      </button>
+      <button id="data-drift" type="button" class="btn btn-primary">
+        Data Drift
+      </button>
+      <button id="concept-drift" type="button" class="btn btn-primary">
+        Concept Drift
+      </button>
+    </div>
+  </div>
+  <div class="chats">
+    <div class="alert alert-dismissible alert-secondary" id="chatbot">
+      Chatbot
+    </div>
+    <div class="form-group">
+      <label for="exampleTextarea" class="form-label mt-4"
+        >Ask questions...</label
+      >
+      <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+    </div>
+    <button type="button" class="btn btn-outline-light btn-sm" id="ask">
+      Ask
+    </button>
+    <div id="predictions">Upcoming prediction</div>
+  </div>
+  <div class="content">
+    <div class="chartss">
+      <div id="data-drift">
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </div>
+      <div id="concept-drift">
+        <canvas id="scatterChart" width="400" height="400"></canvas>
+      </div>
+    </div>
+    <div class="tables">
+      <div id="model-parameter-table">Model Parameters Table</div>
+      <div id="model-eval-table">Model Evaluations Table</div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var myChart = new Chart(ctx, {
+    type: "bar", // You can change the type as needed
+    data: {
+      labels: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], // Labels will be empty initially
+      datasets: [
+        {
+          label: "Existing Data",
+          data: [],
+          backgroundColor: "blue", // Choose a color for existing data
+          borderColor: "blue",
+        },
+        {
+          label: "New Data",
+          data: [],
+          backgroundColor: "orange", // Choose a color for existing data
+          borderColor: "orange",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      // Chart options go here
+    },
+  });
+</script>
+<script>
+  var ctxScatter = document.getElementById("scatterChart").getContext("2d");
+
+  var scatterData = {
+    datasets: [
+      {
+        label: "Existing Data",
+        data: [], // Replace with your actual data
+        backgroundColor: "blue",
+        pointRadius: 2, // Adjust as needed
+        order: 1, // Lower order is drawn first
+      },
+      {
+        label: "New Data",
+        data: [], // Replace with your actual data
+        backgroundColor: "orange",
+        pointRadius: 4, // Adjust as needed
+        order: 20, // Higher order is drawn last (on top)
+      },
+    ],
+  };
+
+  var scatterChart = new Chart(ctxScatter, {
+    type: "scatter",
+    data: scatterData,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        xAxes: [
+          {
+            type: "linear",
+            position: "bottom",
+          },
+        ],
+      },
+    },
+  });
+</script>
+
+<script
+  src="{% static 'js/monitor/script.js' %}"
+  type="text/javascript"
+></script>
+<script>
+  var socket = new WebSocket("ws://localhost:8000/ws/two_url/");
+  var shouldProcessData = true; // Flag to control data processing
+  socket.onmessage = function (event) {
+    if (shouldProcessData) {
+      var data = JSON.parse(event.data);
+      handleAll(data);
+    }
+  };
+
+  // Event listener for the Stop button
+  document.getElementById("build").addEventListener("click", function () {
+    window.location.href = "build/";
+  });
+  document.getElementById("btnStop").addEventListener("click", function () {
+    console.log("here");
+    socket.send(JSON.stringify({ action: "stop" }));
+  });
+
+  // Event listener for the Run button
+  document.getElementById("btnRun").addEventListener("click", function () {
+    socket.send(JSON.stringify({ action: "start" }));
+  });
+
+  socket.onclose = function (event) {
+    console.error("WebSocket closed unexpectedly", event);
+  };
+
+  socket.onerror = function (error) {
+    console.error("WebSocket error observed:", error);
+  };
+
+  function sendButtonId(buttonId) {
+    if (socket.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify({ buttonId: buttonId }));
+    } else {
+      console.error("WebSocket is not open.");
+    }
+  }
+
+  // Attach event listeners to buttons
+  document.getElementById("data-normal").addEventListener("click", function () {
+    sendButtonId(this.id);
+  });
+
+  document.getElementById("data-drift").addEventListener("click", function () {
+    sendButtonId(this.id);
+  });
+
+  document
+    .getElementById("concept-drift")
+    .addEventListener("click", function () {
+      sendButtonId(this.id);
+    });
+</script>
+{% endblock %}

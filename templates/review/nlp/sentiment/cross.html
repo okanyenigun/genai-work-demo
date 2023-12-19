@@ -1,0 +1,65 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="form-frame">
+  <form method="GET">
+    <fieldset>
+      <p>Compare sentiment models for a given text.</p>
+      <div class="form-fields">
+        <div class="form-group">
+          <label for="text" class="form-label mt-4">Enter your text</label>
+          <textarea
+            class="form-control"
+            id="cross-text"
+            name="cross_text"
+            rows="3"
+            placeholder="{{ cross_text }}"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" name="cross">
+          Compare
+        </button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<!-- prettier-ignore -->
+{% if cross_sentiment_data %}
+<div class="result-frame">
+  {% for key, value in cross_sentiment_data.items %}
+  <!-- prettier-ignore -->
+  {% if value.color == 'positive' %}
+  <div class="card border-success mb-3" style="max-width: 20rem">
+    <div class="card-header">Sentiment Analysis</div>
+    <div class="card-body">
+      <h4 class="card-title">Positive</h4>
+      <p class="card-text">Score: {{ value.score }}</p>
+      <p class="card-text">Label: {{ value.label }}</p>
+    </div>
+  </div>
+  {% elif value.color == 'negative' %}
+  <div class="card border-danger mb-3" style="max-width: 20rem">
+    <div class="card-header">Sentiment Analysis</div>
+    <div class="card-body">
+      <h4 class="card-title">Negative</h4>
+      <p class="card-text">Score: {{ value.score }}</p>
+      <p class="card-text">Label: {{ value.label }}</p>
+    </div>
+  </div>
+  {% elif value.color == 'neutral' %}
+  <div class="card border-warning mb-3" style="max-width: 20rem">
+    <div class="card-header">Sentiment Analysis</div>
+    <div class="card-body">
+      <h4 class="card-title">Neutral</h4>
+      <p class="card-text">Score: {{ value.score }}</p>
+      <p class="card-text">Label: {{ value.label }}</p>
+    </div>
+  </div>
+  <!-- prettier-ignore -->
+  {% endif %}
+  <!-- prettier-ignore -->
+  {% endfor %}
+</div>
+<!-- prettier-ignore -->
+{% endif %}
+<!-- prettier-ignore -->
+{% endblock %}

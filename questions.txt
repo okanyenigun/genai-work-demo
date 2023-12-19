@@ -1,0 +1,14 @@
+
+
+
+
+Diyelim ki kredi başvurum reddedildi. Tekrar kredi başvurusu yapmak için ne kadar beklemeliyim.
+
+Akbank'ın başvurusunu kabul ediyorum.
+
+
+
+Şuandaki data drift ne durumda?
+Concept drift sence nasıl?
+Modellerde kullanılan hiperparametreleri karşılaştırıp açıklayabilir misin?
+Model performansları sence nasıl, karşılaştırabilir misin?

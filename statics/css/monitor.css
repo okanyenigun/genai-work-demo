@@ -1,0 +1,88 @@
+.top-command-frame {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+}
+
+.additionals {
+  float: right;
+}
+.commands {
+  position: fixed;
+  top: 20%;
+  right: 2%;
+}
+
+.chats {
+  position: fixed;
+  top: 20%;
+  left: 2%;
+  max-width: 300px;
+}
+
+.chats button {
+  float: right;
+  margin-top: 16px;
+}
+
+.content {
+  margin-left: 200px;
+  padding-left: 32px;
+  margin-top: 64px;
+}
+
+.card {
+  max-height: 180px;
+  max-width: 200px !important;
+  min-width: 200px !important;
+}
+
+.card-header {
+  font-size: 14px;
+}
+
+.card-title {
+  font-size: 18px;
+}
+
+.card-text {
+  font-size: 8px;
+}
+
+.card-body {
+  max-height: 100px;
+  overflow: hidden !important;
+}
+
+#predictions {
+  margin-top: 64px;
+}
+
+.content th {
+  font-size: 12px;
+}
+
+.content td {
+  font-size: 10px;
+}
+
+.content table {
+  max-width: fit-content;
+}
+
+.tables {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.chartss {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#chatbot {
+  font-size: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}

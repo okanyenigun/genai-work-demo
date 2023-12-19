@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="form-frame">
+  <form method="POST">
+    {% csrf_token %}
+    <fieldset>
+      <p>Apply sentiment analysis for database records.</p>
+      <div class="form-fields">
+        <div class="form-group">
+          <label for="all-data-source" class="form-label mt-4"
+            >Data Source</label
+          >
+
+          <select
+            class="form-select"
+            id="all-data-source"
+            name="all_data_source"
+          >
+            <option disabled value="" selected>Select Data Source</option>
+            <option value="app_store">App Store</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="all-app-name" class="form-label mt-4">App</label>
+          <select class="form-select" id="all-app-name" name="all_app_id">
+            <option disabled value="" selected>Select App</option>
+            {% for app in apps %}
+            <option value="{{app.id}}">{{app.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="all-model" class="form-label mt-4">Model</label>
+          <select class="form-select" id="all-model" name="all_model_id">
+            <option disabled value="" selected>Select Model</option>
+            {% for model in models_records %}
+            <option value="{{model.id}}">{{model.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="review-type" class="form-label mt-4">Review</label>
+          <select class="form-select" id="review-type" name="review_type">
+            <option disabled value="" selected>Select Text</option>
+            <option value="tr">Turkish</option>
+            <option value="en">English Translation</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" name="all">
+          Analyze
+        </button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+{% if all_counts %}
+<div class="result-frame">
+  <div class="alert alert-dismissible alert-success">
+    <strong>Well done!</strong> Using {{all_counts.modelname}} model,
+    {{all_counts.count}} records have been saved successfully.
+  </div>
+</div>
+{% endif %} {% endblock %}

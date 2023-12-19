@@ -1,0 +1,24 @@
+{% block content %}
+<div class="side-bar-frame">
+  <div class="side">
+    <ul class="nav nav-pills flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'review_nlp_translate' %}"
+          >Translate</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'review_nlp_sentiment' %}"
+          >Sentiment</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'review_nlp_zero' %}">Zero-Shot</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Tabular Questioning</a>
+      </li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

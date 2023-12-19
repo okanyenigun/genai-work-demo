@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="form-frame">
+  <form method="GET">
+    <fieldset>
+      <p>Compare English translations for a given text.</p>
+      <div class="form-fields">
+        <div class="form-group">
+          <label for="text" class="form-label mt-4">Enter your text</label>
+          <textarea
+            class="form-control"
+            id="cross-text"
+            name="cross_text"
+            rows="3"
+            placeholder="{{cross_text}}"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" name="cross">
+          Compare
+        </button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+{% if cross_translated %}
+<div class="result-frame">
+  {% for model, content in cross_translated.items %}
+  <figure>
+    <blockquote class="blockquote">
+      <p class="mb-0">{{content.translated_text}}</p>
+    </blockquote>
+    <figcaption class="blockquote-footer">{{model}}</figcaption>
+  </figure>
+  {% endfor %}
+</div>
+{% endif %} {% endblock %}

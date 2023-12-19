@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="form-frame">
+  <form method="POST">
+    {% csrf_token %}
+    <fieldset>
+      <p>Register models for translation.</p>
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %} {% if message.tags == "success" %}
+        <div class="alert alert-dismissible alert-success">
+          <strong>Well done! </strong> {{ message }}
+        </div>
+        {% elif message.tags == "error" %}
+        <div class="alert alert-dismissible alert-danger">
+          <strong>Oh snap! </strong>{{ message }}
+        </div>
+        {% endif %} {% endfor %}
+      </ul>
+      {% endif %}
+      <div class="form-fields">
+        {{models_form}}
+        <button type="submit" class="btn btn-primary" name="models">
+          Save
+        </button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div class="record-table-frame">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Source</th>
+        <th scope="col">Use Case</th>
+        <th scope="col">Create Date</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in models_records %}
+      <tr>
+        <th scope="row">{{record.id}}</th>
+        <td>{{record.name}}</td>
+        <td>{{record.source}}</td>
+        <td>{{record.use_case}}</td>
+        <td>{{record.createdate}}</td>
+        <td><i class="fa-solid fa-trash"></i></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

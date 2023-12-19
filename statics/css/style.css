@@ -1,0 +1,65 @@
+.main-card-box {
+  margin-top: 160px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.card {
+  min-width: 350px !important;
+}
+
+.card:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.side {
+  max-width: fit-content;
+  padding-top: 32px;
+  padding-right: 32px;
+  margin-top: 240px;
+  position: fixed;
+  margin-left: -48px;
+}
+.form-frame {
+  margin-top: 64px;
+  max-width: 640px;
+  margin-left: 30%;
+}
+
+.form-fields button {
+  margin-top: 16px;
+  float: right;
+}
+
+.form-fields input,
+.form-fields label {
+  margin-top: 4px;
+}
+
+.record-table-frame {
+  margin-top: 128px;
+  margin-left: 15%;
+  max-width: 1000px;
+}
+
+.record-table-frame td {
+  word-wrap: break-word;
+}
+
+#radio-group {
+  margin-top: 64px;
+  margin-left: 35%;
+}
+
+.result-frame {
+  margin-top: 64px;
+  max-width: 70%;
+  margin-left: 15%;
+}
+
+.card-text {
+  overflow: auto !important;
+  height: 100px;
+}

@@ -1,0 +1,51 @@
+.top-form-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 1000px;
+  padding: 32px 32px;
+  margin-top: 64px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  align-items: center;
+  margin-left: 200px;
+}
+
+.top-form-area select,
+.top-form-area input,
+.top-form-area button {
+  width: 300px;
+  height: 50px;
+}
+.top-form-area button {
+  margin-top: 54px;
+}
+
+.bank-proposal-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 64px;
+  overflow-y: scroll;
+}
+
+.card {
+  max-width: 200px;
+  height: 400px;
+  margin: 16px;
+  font-size: 12px;
+}
+.card img {
+  width: 100%;
+  min-height: 120px;
+  max-height: 120px;
+}
+
+.card-body {
+  height: 100px;
+}
+
+.model-choose-frame {
+  margin-left: 500px;
+  margin-top: 16px;
+}

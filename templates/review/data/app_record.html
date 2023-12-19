@@ -1,0 +1,57 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/bootstrap_cyber.min.css' %}" />
+<div class="container">
+  {% include 'review/navbar.html'%} {% include 'review/data/side.html'%}
+  <div class="form-frame">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-fields">
+        <legend>App Record</legend>
+
+        <p>Register an app to scrap its reviews.</p>
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %} {% if message.tags == "success" %}
+          <div class="alert alert-dismissible alert-success">
+            <strong>Well done! </strong> {{ message }}
+          </div>
+          {% elif message.tags == "error" %}
+          <div class="alert alert-dismissible alert-danger">
+            <strong>Oh snap! </strong>{{ message }}
+          </div>
+          {% endif %} {% endfor %}
+        </ul>
+        {% endif %}
+        <fieldset>{{ form }}</fieldset>
+        <button type="submit" class="btn btn-primary" name="save">Save</button>
+      </div>
+    </form>
+  </div>
+  <div class="record-table-frame">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Google ID</th>
+          <th scope="col">Apple Code</th>
+          <th scope="col">Apple ID</th>
+          <th scope="col">Create Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in records %}
+        <tr>
+          <th scope="row">{{record.id}}</th>
+          <td>{{record.name}}</td>
+          <td>{{record.google_id}}</td>
+          <td>{{record.apple_name}}</td>
+          <td>{{record.apple_id}}</td>
+          <td>{{record.createdate}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

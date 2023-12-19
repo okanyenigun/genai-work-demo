@@ -1,0 +1,70 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+  <div class="form-frame">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-fields">
+        <legend>Export Data</legend>
+
+        <p>Export data.</p>
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %} {% if message.tags == "success" %}
+          <div class="alert alert-dismissible alert-success">
+            <strong>Well done! </strong> {{ message }}
+          </div>
+          {% elif message.tags == "error" %}
+          <div class="alert alert-dismissible alert-danger">
+            <strong>Oh snap! </strong>{{ message }}
+          </div>
+          {% endif %} {% endfor %}
+        </ul>
+        {% endif %}
+        <fieldset>
+          <div class="form-group">
+            <label for="app-name" class="form-label mt-4">App</label>
+            <select class="form-select" id="app-name" name="app_id">
+              <option disabled value="" selected>Select App</option>
+              {% for app in apps%}
+              <option value="{{app.id}}">{{app.name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="data-source" class="form-label mt-4">Data Source</label>
+            <select class="form-select" id="data-source" name="data_source">
+              <option disabled value="" selected>Select Source</option>
+              <option value="app_store">App Store</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="translation-model" class="form-label mt-4"
+              >Translation Model</label
+            >
+            <select
+              class="form-select"
+              id="translation-model"
+              name="translation_model"
+            >
+              <option disabled value="" selected>Select Model</option>
+              {% for model in models_records %}
+              <option value="{{model.id}}">{{model.name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="file-format" class="form-label mt-4">File Format</label>
+            <select class="form-select" id="file-format" name="file_format">
+              <option disabled value="" selected>Select File Format</option>
+              <option value="csv">CSV</option>
+              <option value="excel">Excel</option>
+            </select>
+          </div>
+        </fieldset>
+        <button type="submit" class="btn btn-primary" name="export">
+          Export
+        </button>
+      </div>
+    </form>
+  </div>
+  {% endblock %}
+</div>
